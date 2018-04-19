@@ -1,5 +1,0 @@
-com.RMQ.MQActions.MQConnectAction
-com.RMQ.MQActions.MQDisconnectAction
-com.RMQ.MQActions.MQSendAction
-com.RMQ.MQActions.MQReceiveAction
-com.RMQ.MQActions.MQMonitorAction
