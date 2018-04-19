@@ -58,6 +58,28 @@ Sends a messages to Rabbit MQ.
 | Message                  |  Message to send to the queue |
 
 Status Codes:
-* ●	NL-MQSend_ErrorR:  Any error while sending message.
+* NL-MQSend_ErrorR:  Any error while sending message.
 
+## Action 'MQReceive'
 
+Receives messages from a queue.
+
+| Name                     | Description       |
+| ---------------          | ----------------- |
+| connectionName           | the name of the connection as specified in the 'MQConnect' action |
+| Qeuename                 | Name of the queue |
+
+Status Codes:
+* NL-MQReceive_Error:  Any error while sending message.
+
+## Action 'MQDisconnect'
+
+Disconnects from a queue.
+
+| Name                     | Description       |
+| ---------------          | ----------------- |
+| connectionName           | the name of the connection as specified in the 'MQConnect' action |
+| Qeuename                 | Name of the queue |
+
+Status Codes:
+* NL-MQDisconnect_Error:  Any error while disconnecting from the queue.
