@@ -20,9 +20,7 @@ public final class MQDisconnectAction implements Action{
 	
 static enum RMQParameter {
 		
-		CONNECTION_NAME("connectionName", "the name of the connection to map with other advanced actions", true, true);
-		
-		
+		CONNECTION_NAME("connectionName", "Name of the connection as specified in the 'MQConnect' action", true, true);
 		
 		
 		private final String name;
