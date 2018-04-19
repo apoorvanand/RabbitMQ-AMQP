@@ -34,28 +34,27 @@ Connects to Rabbit MQ.
 
 | Name                     | Description       |
 | ---------------          | ----------------- |
-| connectionName           | the name of the connection  
-| Hostname                 | name/IP address of RabbitMQ server 
-| Port                     | Port used to connect , send & receive message .Default value= 5672 |
-| Virtualhost              | Namespace for objects like exchanges, queues & bindings |
-| Username                 | Username for connecting to the queue |
-| Password                 | Password for connecting to the queue |
+| connectionName           | Name to give to the opened connection  
+| hostname                 | Name/IP address of the RabbitMQ server 
+| port                     | Port used to connect , send & receive message .Default value= 5672 |
+| virtualhost              | Namespace for objects like exchanges, queues & bindings |
+| username                 | Username for connecting to the queue |
+| password                 | Password for connecting to the queue |
 
 Status Codes:
 * NL-MQConnect_Error: Any error while connecting to RabbitMQ. 
 
 ## Action 'MQSend'
 
-Sends a messages to Rabbit MQ.
+Creates a channel and performs a basicPublish.
 
 | Name                     | Description       |
 | ---------------          | ----------------- |
-| connectionName           | the name of the connection as specified in the 'MQConnect' action |
-| Exchangechannelname      | name of exchange channel used for binding the queue|
-| Excahngechanneltype      | Type of exchange channel: possible values are direct/topic/headers/fanout |
-| Qeuename                 | (optional) Name of Queue |
-| Routingkey               | (optional) key for routing message to queue |
-| Message                  |  Message to send to the queue |
+| connectionName           | Name of the connection as specified in the 'MQConnect' action |
+| exchangeChannelName      | Name of the exchange channel |
+| queueName      	       | (optional) Name of Queue |
+| routingkey               | (optional) key for routing message to queue |
+| message                  | Message to send to the queue |
 
 Status Codes:
 * NL-MQSend_ErrorR:  Any error while sending message.
@@ -67,7 +66,7 @@ Receives messages from a queue.
 | Name                     | Description       |
 | ---------------          | ----------------- |
 | connectionName           | the name of the connection as specified in the 'MQConnect' action |
-| Qeuename                 | Name of the queue |
+| queueName                | Name of the queue |
 
 Status Codes:
 * NL-MQReceive_Error:  Any error while sending message.
@@ -79,7 +78,16 @@ Disconnects from a queue.
 | Name                     | Description       |
 | ---------------          | ----------------- |
 | connectionName           | the name of the connection as specified in the 'MQConnect' action |
-| Qeuename                 | Name of the queue |
 
 Status Codes:
 * NL-MQDisconnect_Error:  Any error while disconnecting from the queue.
+
+## Action 'MQMonitor'
+
+Returns Monitoring information related to the connection:
+Number of messages published, rejected, consumed and acknowledged, number of channels
+
+| Name                     | Description       |
+| ---------------          | ----------------- |
+| connectionName           | the name of the connection as specified in the 'MQConnect' action |
+

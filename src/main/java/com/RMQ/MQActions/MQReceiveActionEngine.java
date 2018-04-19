@@ -40,7 +40,7 @@ public final class MQReceiveActionEngine implements ActionEngine {
 				CONNECTION_NAME = parameter.getValue();
 				break;
 	
-			case "Qeuename":
+			case "queueName":
 				qeuename = parameter.getValue();
 				break;
 			

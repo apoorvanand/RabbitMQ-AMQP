@@ -20,12 +20,12 @@ public final class MQSendAction implements Action{
 	
 static enum RMQParameter {
 		
-		CONNECTION_NAME("connectionName", "the name of the connection to map with other advanced actions", true, true),
-		EXCHANGECHANNELNAME("Excahngechannelname", "name of exhange cahnnel for binding queue", true, true),
-		EXCHANGECHANNELTYPE("Excahngechanneltype", "type of exhange cahnnel: direct/fanout", true, true),
-		QEUENAME("Qeuename", "Name of Qeue", false, true),
-		ROUTINGKEY("Routingkey", "key for routing message to queue", true, true),
-		MESSAGE("Message", "Message to send to the queue", true, true);
+		CONNECTION_NAME("connectionName", "Name of the connection as specified in the 'MQConnect' action", true, true),
+		EXCHANGECHANNELNAME("exchangeChannelName", "Name of the exchange channel", true, true),
+		//EXCHANGECHANNELTYPE("exchangeChannelType", "Type of exchange channel: direct/fanout", true, true),
+		QEUENAME("queueName", "Queue name", false, true),
+		ROUTINGKEY("routingkey", "key for routing message to queue", true, true),
+		MESSAGE("message", "Message to send to the queue", true, true);
 		//contentFile_parse("contentFile_parse", "Whether to parse the file to replace variables. Possible values are Y/N , Default value= N", false, false);
 		
 		private final String name;
@@ -73,13 +73,13 @@ static enum RMQParameter {
 	@Override
 	public List<ActionParameter> getDefaultActionParameters() {
 		final List<ActionParameter> parameters = new ArrayList<ActionParameter>();
-		// TODO Add default parameters.
+
 		parameters.add(new ActionParameter(RMQParameter.CONNECTION_NAME.getName(), "myConnection"));
-		parameters.add(new ActionParameter(RMQParameter.EXCHANGECHANNELNAME.getName(), "channelname"));
-		parameters.add(new ActionParameter(RMQParameter.EXCHANGECHANNELTYPE.getName(), "direct"));
-		parameters.add(new ActionParameter(RMQParameter.QEUENAME.getName(), "Queue Name"));
-		parameters.add(new ActionParameter(RMQParameter.ROUTINGKEY.getName(), "Routing key"));
-		parameters.add(new ActionParameter(RMQParameter.MESSAGE.getName(), "Hello Rabbit MQ!"));
+		parameters.add(new ActionParameter(RMQParameter.EXCHANGECHANNELNAME.getName(), ""));
+		//parameters.add(new ActionParameter(RMQParameter.EXCHANGECHANNELTYPE.getName(), "direct"));
+		parameters.add(new ActionParameter(RMQParameter.QEUENAME.getName(), ""));
+		parameters.add(new ActionParameter(RMQParameter.ROUTINGKEY.getName(), ""));
+		parameters.add(new ActionParameter(RMQParameter.MESSAGE.getName(), ""));
 		//parameters.add(new ActionParameter(RMQParameter.contentFile_parse.getName(), "N"));
 		return parameters;
 	}
@@ -97,7 +97,7 @@ static enum RMQParameter {
 
 	@Override
 	public boolean getDefaultIsHit(){
-		return false;
+		return true;
 	}
 
 	@Override

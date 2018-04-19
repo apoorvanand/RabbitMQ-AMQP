@@ -24,8 +24,6 @@ public final class MQDisconnectActionEngine implements ActionEngine {
 		String CONNECTION_NAME = null;
 	   // Connection connection ;
 		
-		sampleResult.sampleStart();
-		
 
 		for(ActionParameter parameter:parameters) {
 
@@ -35,27 +33,23 @@ public final class MQDisconnectActionEngine implements ActionEngine {
 				CONNECTION_NAME = parameter.getValue();
 				break;
 	
-			
-	
-	}
-}
+			}
+		}
 
 		appendLineToStringBuilder(requestBuilder, "MQDisconnect request.");
 		appendLineToStringBuilder(responseBuilder, "MQDisconnect response.");
-		// TODO perform execution.
 
-
-	    
+		sampleResult.sampleStart();
 	
 		try {
 		
 			Connection connection = (Connection)context.getCurrentVirtualUser().get(CONNECTION_NAME);
+			if (connection==null) {
+				throw new IllegalArgumentException("Connection not found: "+CONNECTION_NAME);
+			}
 			connection.close();
 		 
-		    
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			
 			e.printStackTrace();
 			appendLineToStringBuilder(responseBuilder, e.getMessage());
 			return getErrorResult(context, sampleResult, e.getMessage(), e);
@@ -64,15 +58,14 @@ public final class MQDisconnectActionEngine implements ActionEngine {
 		// Put Connection in the context of the VU, so it could be retrieved further
 					if (context.getLogger().isDebugEnabled()) {
 						
-						appendLineToStringBuilder(responseBuilder,"disconencted from  RabbitQ: ");
+						appendLineToStringBuilder(responseBuilder,"disconnected from  RabbitQ: ");
 					}
 					
 		sampleResult.setRequestContent(requestBuilder.toString());
 		sampleResult.setResponseContent(responseBuilder.toString());
-		appendLineToStringBuilder(responseBuilder, "disconencted from  RabbitQ: "); 		
+		appendLineToStringBuilder(responseBuilder, "disconnected from  RabbitQ: "); 		
 		sampleResult.sampleEnd();
 
-		
 		return sampleResult;
 	}
 
@@ -97,7 +90,6 @@ public final class MQDisconnectActionEngine implements ActionEngine {
 
 	@Override
 	public void stopExecute() {
-		// TODO add code executed when the test have to stop.
 	}
 
 }

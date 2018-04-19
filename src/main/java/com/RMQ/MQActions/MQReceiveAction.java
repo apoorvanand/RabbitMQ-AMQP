@@ -20,9 +20,8 @@ public final class MQReceiveAction implements Action{
 	
 static enum RMQParameter {
 		
-		CONNECTION_NAME("connectionName", "the name of the connection to map with other advanced actions", true, true),
-		QEUENAME("Qeuename", "Name of the queue", true, true);
-		
+		CONNECTION_NAME("connectionName", "Name of the connection as specified in the 'MQConnect' action", true, true),
+		QEUENAME("queueName", "Queue name", true, true);
 		
 		private final String name;
 		private final String description;
@@ -71,7 +70,7 @@ static enum RMQParameter {
 		final List<ActionParameter> parameters = new ArrayList<ActionParameter>();
 		// TODO Add default parameters.
 		parameters.add(new ActionParameter(RMQParameter.CONNECTION_NAME.getName(), "myConnection"));
-		parameters.add(new ActionParameter(RMQParameter.QEUENAME.getName(), "Queue Name"));
+		parameters.add(new ActionParameter(RMQParameter.QEUENAME.getName(), ""));
 		
 		
 		return parameters;

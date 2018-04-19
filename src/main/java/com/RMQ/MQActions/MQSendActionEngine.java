@@ -10,7 +10,6 @@ import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
 import com.neotys.extensions.action.engine.SampleResult;
 import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 
@@ -22,13 +21,13 @@ public final class MQSendActionEngine implements ActionEngine {
 		final SampleResult sampleResult = new SampleResult();
 		final StringBuilder requestBuilder = new StringBuilder();
 		final StringBuilder responseBuilder = new StringBuilder();
-		String CONNECTION_NAME = null, qeuename = null,message = null,exchangechannelname=null,channeltype=null,routingkey=null,contentFile_parse=null,parsedstring=null;
+		String CONNECTION_NAME = null, qeuename = null,message = null,exchangechannelname=null,routingkey=null,parsedstring=null;
+		//String channeltype=null;
+		//String contentFile_parse=null;
 		Channel channel = null;
-		 Connection connection;
+		Connection connection;
 		
-		sampleResult.sampleStart();
 		
-
 		for(ActionParameter parameter:parameters) {
 
 			switch(parameter.getName()) {
@@ -37,25 +36,25 @@ public final class MQSendActionEngine implements ActionEngine {
 				CONNECTION_NAME = parameter.getValue();
 				break;
 	
-			case "Excahngechannelname":
+			case "exchangeChannelName":
 				exchangechannelname = parameter.getValue();
 				break;
-			case "Excahngechanneltype":
+			/*case "exchangeChannelType":
 				channeltype = parameter.getValue();
-				break;
-			case "Qeuename":
+				break;*/
+			case "queueName":
 				qeuename = parameter.getValue();
 				break;
 				
-			case "Routingkey":
+			case "routingkey":
 				routingkey = parameter.getValue();
 				break;
-			case "Message":
+			case "message":
 				message = parameter.getValue();
 				break;
-			case "contentFile_parse":
+			/*case "contentFile_parse":
 				contentFile_parse = parameter.getValue();
-				break;
+				break;*/
 			
 	}
 }
@@ -65,7 +64,8 @@ public final class MQSendActionEngine implements ActionEngine {
 		appendLineToStringBuilder(requestBuilder, "MQSend request.");
 		appendLineToStringBuilder(responseBuilder, "MQSend response.");
 		// TODO perform execution.
-
+		
+		sampleResult.sampleStart();
 		
 		try {
 			//parsing message
@@ -101,8 +101,6 @@ public final class MQSendActionEngine implements ActionEngine {
 		    channel.close();
 
 		} catch (IOException | NullPointerException | TimeoutException e) {
-			// TODO Auto-generated catch block
-			
 			e.printStackTrace();
 			appendLineToStringBuilder(responseBuilder, e.getMessage());
 			return getErrorResult(context, sampleResult, e.getMessage(), e);
@@ -113,7 +111,6 @@ public final class MQSendActionEngine implements ActionEngine {
 		sampleResult.setResponseContent(responseBuilder.toString());	
 		sampleResult.sampleEnd();
 
-		
 		return sampleResult;
 	}
 
@@ -138,7 +135,6 @@ public final class MQSendActionEngine implements ActionEngine {
 
 	@Override
 	public void stopExecute() {
-		// TODO add code executed when the test have to stop.
 	}
 
 }

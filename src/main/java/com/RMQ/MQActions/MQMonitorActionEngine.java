@@ -1,9 +1,7 @@
 package com.RMQ.MQActions;
 
 
-import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.BasicConfigurator;
 
@@ -11,9 +9,7 @@ import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
 import com.neotys.extensions.action.engine.SampleResult;
-import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.impl.StandardMetricsCollector;
 
 public final class MQMonitorActionEngine implements ActionEngine {
@@ -40,37 +36,31 @@ public final class MQMonitorActionEngine implements ActionEngine {
 				CONNECTION_NAME = parameter.getValue();
 				break;
 	
-			
-	
-	}
-	}
+			}
+		}
 
-   BasicConfigurator.configure();
+		BasicConfigurator.configure();
 		
 		try {
-			
-		    
 			
 			connection = (Connection)context.getCurrentVirtualUser().get(CONNECTION_NAME);
 			if (connection!=null){
 			metrics=(StandardMetricsCollector )context.getCurrentVirtualUser().get(METRICS);
 			long publishedMessagesCount = metrics.getPublishedMessages().getCount();
-			appendLineToStringBuilder(responseBuilder, " <Published Message count>" + publishedMessagesCount + "</Published Message count>");
+			appendLineToStringBuilder(responseBuilder, " <publishedMessages>" + publishedMessagesCount + "</publishedMessages>");
 		   // metrics.getRejectedMessages().getCount();
-		    appendLineToStringBuilder(responseBuilder, " <Rejected Message count>" + metrics.getRejectedMessages().getCount() + "</Rejected Message count>");
+		    appendLineToStringBuilder(responseBuilder, " <rejectedMessages>" + metrics.getRejectedMessages().getCount() + "</rejectedMessages>");
 		   // metrics.getConsumedMessages().getCount();
-		    appendLineToStringBuilder(responseBuilder, " <Consumed  Message count>" + metrics.getConsumedMessages().getCount() + "</Consumed  Message count>");
+		    appendLineToStringBuilder(responseBuilder, " <consumedMessages>" + metrics.getConsumedMessages().getCount() + "</consumedMessages>");
 		    //metrics.getAcknowledgedMessages().getCount();
-		    appendLineToStringBuilder(responseBuilder, " <getAcknowledgedMessages>" + metrics.getAcknowledgedMessages().getCount()+ "</getAcknowledgedMessages>");
-		    appendLineToStringBuilder(responseBuilder, " <getchannelcount>" +   metrics.getChannels().getCount()+ "</getchannelcount");
+		    appendLineToStringBuilder(responseBuilder, " <acknowledgedMessages>" + metrics.getAcknowledgedMessages().getCount()+ "</acknowledgedMessages>");
+		    appendLineToStringBuilder(responseBuilder, " <channels>" +   metrics.getChannels().getCount()+ "</channels");
 		   // metrics.getChannels().getCount();
 		    
 		   // System.out.println("published message"+publishedMessagesCount );
 			}
 		}
 		catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			
 			e.printStackTrace();
 			appendLineToStringBuilder(responseBuilder, e.getMessage());
 			return getErrorResult(context, sampleResult, e.getMessage(), e);
@@ -80,7 +70,6 @@ public final class MQMonitorActionEngine implements ActionEngine {
 		sampleResult.setResponseContent(responseBuilder.toString());	
 		sampleResult.sampleEnd();
 
-		
 		return sampleResult;
 	}
 
@@ -105,7 +94,6 @@ public final class MQMonitorActionEngine implements ActionEngine {
 
 	@Override
 	public void stopExecute() {
-		// TODO add code executed when the test have to stop.
 	}
 
 }

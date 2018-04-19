@@ -21,14 +21,12 @@ public final class MQConnectAction implements Action{
 	
 static enum RMQParameter {
 		
-		CONNECTION_NAME("connectionName", "the name of the connection to map with other advanced actions", true, true),
-		HOSTNAME("Hostname", "Rabbit MQ server name/ip", true, true),
-		PORT("Port", "port used for send & receive message .Default value= 5672", true, true),
-		VIRTUALHOST("Virtualhost", "Virtualhost ,Default value=", true, true),
-		USERNAME("Username", "Username to connect Rabbit MQ server ", true, true),
-		PASSWORD("Password", "Password to connect Rabbit MQ server ", true, true);
-		
-		
+		CONNECTION_NAME("connectionName", "Name to give to the opened connection ", true, true),
+		HOSTNAME("hostname", "Rabbit MQ server name/ip", true, true),
+		PORT("port", "port used for send & receive message .Default value= 5672", true, true),
+		VIRTUALHOST("virtualhost", "Virtualhost ,Default value=", true, true),
+		USERNAME("username", "Username to connect Rabbit MQ server ", true, true),
+		PASSWORD("password", "Password to connect Rabbit MQ server ", true, true);
 		
 		private final String name;
 		private final String description;
@@ -73,13 +71,13 @@ static enum RMQParameter {
 	@Override
 	public List<ActionParameter> getDefaultActionParameters() {
 		final List<ActionParameter> parameters = new ArrayList<ActionParameter>();
-		// TODO Add default parameters.
+
 		parameters.add(new ActionParameter(RMQParameter.CONNECTION_NAME.getName(), "myConnection"));
 		parameters.add(new ActionParameter(RMQParameter.HOSTNAME.getName(), "127.0.0.1"));
 		parameters.add(new ActionParameter(RMQParameter.PORT.getName(), "5672"));
 		parameters.add(new ActionParameter(RMQParameter.VIRTUALHOST.getName(), "/"));
-		parameters.add(new ActionParameter(RMQParameter.USERNAME.getName(), "Username"));
-		parameters.add(new ActionParameter(RMQParameter.PASSWORD.getName(), "password"));
+		parameters.add(new ActionParameter(RMQParameter.USERNAME.getName(), ""));
+		parameters.add(new ActionParameter(RMQParameter.PASSWORD.getName(), ""));
 		return parameters;
 	}
 
